@@ -12,7 +12,7 @@ import net.explorviz.extension.jitpack.model.SubDummyModel;
 // @Secured
 // Add the "Secured" annotation to enable authentication
 
-@Path("/test")
+@Path("/testalex")
 public class TestResource {
 
 	@GET

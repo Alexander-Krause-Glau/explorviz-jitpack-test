@@ -9,7 +9,7 @@ import net.explorviz.extension.jitpack.model.DummyModel;
 import net.explorviz.extension.jitpack.model.SubDummyModel;
 import net.explorviz.extension.jitpack.providers.DummyModelProvider;
 
-@ApplicationPath("/extension/dummy")
+@ApplicationPath("/extension/jitpack")
 public class Application extends ResourceConfig {
 
 	public Application() {
