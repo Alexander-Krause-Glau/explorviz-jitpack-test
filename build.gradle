@@ -4,6 +4,7 @@ apply plugin: 'war'
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
+apply plugin: 'maven'
 
 
 buildscript {
@@ -52,18 +53,40 @@ dependencies {
 }
 
 
-// Don't build war when tests fail
-war.dependsOn check
-
+// ##### BEGIN Jitpack section #####
 
 // War plugin typically disables jar build
 assemble.dependsOn jar
 
-// Build .jar file with your "provided" dependencies only
+// https://discuss.gradle.org/t/deploying-multiple-artifacts-war-jar-sources-to-artifactory/4239
+artifacts {
+  	archives jar
+  	archives war {
+        classifier = 'deployment'
+    }
+}
+
 jar {
   baseName = project.name 
-  from configurations.provided.asFileTree.files.collect { zipTree(it) }
 }
+
+install {
+  repositories {
+    mavenInstaller {
+      addFilter('explorviz-backend-extension-jitpack') {artifact, file ->
+        artifact.name == 'explorviz-backend-extension-jitpack'
+      }
+    }
+  }
+}
+
+// ##### END Jitpack section #####
+
+// Build .jar file with your "provided" dependencies only
+//jar {
+// baseName = project.name 
+ // from configurations.provided.asFileTree.files.collect { zipTree(it) }
+//}
 
 
 // Tooling
